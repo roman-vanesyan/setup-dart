@@ -1,0 +1,67 @@
+name: integration-test
+
+on:
+  pull_request:
+    paths-ignore:
+      - '**.md'
+  push:
+    branches:
+      - master
+      - releases/*
+    paths-ignore:
+      - '**.md'
+
+jobs:
+  versions:
+    runs-on: ${{ matrix.operating-system }}
+    strategy:
+      fail-fast: false
+      matrix:
+        operating-system: [ubuntu-latest, windows-latest, macos-latest]
+        version: [2.9.2, 2.0.0]
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup Dart VM
+        uses: ./
+        with:
+          version: ${{ matrix.version }}
+
+      - name: Verify Dart VM version
+        run: __tests__/verify-version.sh "${{ matrix.version }}"
+        shell: bash
+
+  dev-channel:
+    runs-on: ${{ matrix.operating-system }}
+    strategy:
+      fail-fast: false
+      matrix:
+        operating-system: [ubuntu-latest, windows-latest, macos-latest]
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup Dart VM
+        uses: ./
+        with:
+          version: 2.10.0-92.0.dev
+          channel: dev
+
+      - name: Verify Dart VM version
+        run: __tests__/verify-version.sh "${{ matrix.version }}"
+        shell: bash
+
+  beta-channel:
+    runs-on: ${{ matrix.operating-system }}
+    strategy:
+      fail-fast: false
+      matrix:
+        operating-system: [ubuntu-latest, windows-latest, macos-latest]
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup Dart VM
+        uses: ./
+        with:
+          version: 2.10.0-7.3.beta
+          channel: beta
+
+      - name: Verify Dart VM version
+        run: __tests__/verify-version.sh "${{ matrix.version }}"
+        shell: bash

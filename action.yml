@@ -1,0 +1,14 @@
+name: "Setup Dart VM"
+description: "Setups a Dart VM"
+inputs:
+  version:
+    default: "latest"
+    required: false
+    description: "Version of Dart VM to be installed. Examples: 2.9.2, 2.x, >=2.8, etc."
+  channel:
+    default: "stable"
+    required: false
+    description: "The channel to use. Valid channels are: stable, beta or dev."
+runs:
+  using: "node12"
+  main: "dist/index.js"

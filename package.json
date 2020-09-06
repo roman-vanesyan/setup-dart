@@ -1,0 +1,48 @@
+{
+  "private": true,
+  "name": "setup-dart",
+  "version": "1.0.0",
+  "author": "Roman Vanesyan <roman@vanesyan.com> (vanesyan.com)",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "description": "Setup Dart VM version",
+  "keywords": [
+    "github",
+    "actions",
+    "dart",
+    "setup"
+  ],
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn format && yarn test && yarn build"
+    }
+  },
+  "scripts": {
+    "format": "prettier -w src",
+    "build": "ncc build src/index.ts -o dist -m -s",
+    "test": "jest"
+  },
+  "dependencies": {
+    "@actions/core": "^1.2.5",
+    "@actions/github": "^4.0.0",
+    "@actions/http-client": "^1.0.8",
+    "@actions/io": "^1.0.2",
+    "@actions/tool-cache": "^1.6.0",
+    "semver": "^7.3.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.11.6",
+    "@babel/plugin-proposal-nullish-coalescing-operator": "^7.10.4",
+    "@babel/plugin-proposal-optional-chaining": "^7.11.0",
+    "@babel/preset-env": "^7.11.5",
+    "@babel/preset-typescript": "^7.10.4",
+    "@types/jest": "^26.0.13",
+    "@types/node": "^14.6.4",
+    "@types/semver": "^7.3.3",
+    "@vercel/ncc": "^0.24.0",
+    "husky": "^4.2.5",
+    "jest": "^26.4.2",
+    "prettier": "^2.1.1",
+    "typescript": "^4.0.2"
+  }
+}
