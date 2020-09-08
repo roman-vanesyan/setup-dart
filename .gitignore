@@ -18,3 +18,7 @@
 # Node.js
 *.log
 node_modules
+
+# Dist
+dist
+!dist/index.js

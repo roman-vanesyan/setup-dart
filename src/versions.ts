@@ -22,7 +22,7 @@ export async function resolveVersion(
   try {
     version = semver.maxSatisfying(versions, versionSpec);
   } catch (err) {
-    info("Unable to resolve version from dist manifest");
+    info("Unable to resolve version from dist manifest.");
     debug(err.message);
     debug(err.stack);
   }

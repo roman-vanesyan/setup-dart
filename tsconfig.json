@@ -1,8 +1,10 @@
 {
   "compilerOptions": {
+    "lib": ["es6"],
+    "module": "CommonJS",
+    "target": "ES6",
     "strict": true,
-    "alwaysStrict": true,
     "esModuleInterop": true,
-    "lib": ["es6"]
+    "noEmit": true
   }
 }

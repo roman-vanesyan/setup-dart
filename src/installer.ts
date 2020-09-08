@@ -9,6 +9,7 @@ import {
 import { addPath, info, setOutput } from "@actions/core";
 import { getVersions, resolveVersion } from "./versions";
 import { Channel } from "./types";
+import { format } from "url";
 
 const TOOL_NAME = "dart";
 
@@ -23,14 +24,18 @@ export async function getDart(
   if (toolPath) {
     info(`Found tool in cache "${toolPath}".`);
   } else {
-    info(`Attempt to download ${versionSpec}.`);
-
     const platform = getPlatform();
     const arch = getArch();
 
-    const downloadPath = await downloadTool(
-      `https://storage.googleapis.com/dart-archive/channels/${channel}/release/${resolvedVersion}/sdk/dartsdk-${platform}-${arch}-release.zip`
-    );
+    info(`Attempt to download ${resolvedVersion}.`);
+    const downloadUrl = format({
+      protocol: "https",
+      host: "storage.googleapis.com",
+      pathname: `/dart-archive/channels/${channel}/release/${resolvedVersion}/sdk/dartsdk-${platform}-${arch}-release.zip`,
+    });
+
+    info(`Acquiring ${resolvedVersion} from ${downloadUrl}`);
+    const downloadPath = await downloadTool(downloadUrl);
     info("Done");
 
     info("Extracting.");
